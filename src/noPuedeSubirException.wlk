@@ -1,0 +1,3 @@
+class NoPuedeSubirException inherits Exception{
+    
+}

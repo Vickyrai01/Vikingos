@@ -1,0 +1,122 @@
+@startuml
+
+class Vikingo{
+    casta
+    tipoDeVikingo
+    oro
+    --
+    puedeIrDeExpedicion() 
+    ascenderDeCasta()
+    ganar(unaCantidad)
+}
+
+class Soldado{
+    vidasCobradas
+    armas
+    --
+    esProductivo()
+    tieneArmas()
+    cobrarVida()
+    recompensarPorAscenso()
+}
+class Granjero{
+    cantHijos
+    hectarias
+    --
+    esProductivo()
+    tieneArmas()
+    cobrarVida()
+    recompensarPorAscenso()
+}
+
+interface tipoVikingo{
+    esProductivo()
+    tieneArmas()
+    cobrarVida()
+    recompensarPorAscenso()
+}
+
+class Casta{
+    --
+    puedeIrDeExpedicion(unVikingo)
+}
+class Jarl {
+    --
+    puedeIrDeExpedicion(unVikingo) 
+    ascender(unVikingo)
+}
+class Karl {
+    --
+    ascender(unVikingo)
+}
+class Thrall{
+    --
+    ascender(unVikingo)
+}
+
+class Aldea{
+    cantidadDeCrucifijos
+    --
+    valeLaPenaInvadir(unosVikingos)
+    botin(unosVikingos)
+    serInvadida(unaExpedicion, unosVikingos)
+}
+
+class AldeaAmurallada{
+    cantMinimaDeVikingos
+    --
+    valeLaPenaInvadir(unosVikingos)
+
+}
+
+class Capital{
+    factorRiqueza
+    defensores
+    --
+    valeLaPenaInvadir(unosVikingos)
+    botin(unosVikingos)
+    defensoresDerrotados(unosVikingos)
+    serInvadida(unaExpedicion, unosVikingos)
+}
+
+interface Lugar{
+    --
+    valeLaPenaInvadir(unosVikingos)
+    botin(unosVikingos)
+    serInvadida(unaExpedicion, unosVikingos)
+}
+
+class Expedicion{
+   lugaresAInvadir
+   vikingos
+   --
+    valeLaPena() 
+    cantidadDeVikingos() 
+    cobrarVidas()
+    subir(unVikingo)
+    invadir(objetivos)
+    botinDe(objetivos)
+    repartirBotin(unaCantidad)
+}
+
+Soldado <-u- Vikingo
+Granjero <-u- Vikingo
+Casta <-u- Vikingo
+
+tipoVikingo <|.u. Soldado 
+tipoVikingo <|.u. Granjero 
+
+Karl -u-|> Casta 
+Jarl -u-|> Casta 
+Thrall -u-|> Casta 
+
+AldeaAmurallada -u-|> Aldea
+Aldea .u.|> Lugar
+Capital .u.|> Lugar
+
+Lugar .>"*" Vikingo
+
+Expedicion ->"*" Lugar
+Expedicion ->"*" Vikingo
+
+@enduml
